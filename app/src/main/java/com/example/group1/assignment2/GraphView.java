@@ -1,4 +1,4 @@
-package com.example.group1.assignment1;
+package com.example.group1.assignment2;
 
 import android.content.Context;
 import android.graphics.Canvas;
