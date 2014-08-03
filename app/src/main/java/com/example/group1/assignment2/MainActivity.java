@@ -51,18 +51,15 @@ public class MainActivity extends Activity  {
          * CRUD Operations
          * */
         // add Patients
-        db.addPatient(new Patient("John Lillyblad", 1, 30, "Male"));
-        db.addPatient(new Patient("Katie Smith", 2, 27, "Female"));
-
-        db.getPatient(1);
-
+        db.addPatient(new Patient(1, 1, 30, 25));
+        //db.addPatient(new Patient("Katie Smith", 2, 27, "Female"));
 
         // get all patients
         List<Patient> list = db.getAllPatients();
 
 
         // delete one patient
-        //db.deletePatient(list.get(0));
+        db.deletePatient(list.get(0));
 
         // get all patients
         db.getAllPatients();

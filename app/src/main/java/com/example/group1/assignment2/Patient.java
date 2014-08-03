@@ -2,59 +2,59 @@ package com.example.group1.assignment2;
 
 public class Patient {
 
-    private String name;
-    private int ID;
-    private int age;
-    private String sex;
+    private int id;
+    private int x;
+    private int y;
+    private int z;
 
 
     public Patient(){}
 
-    public Patient(String name, int ID, int age, String sex) {
+    public Patient(int id, int x, int y, int z) {
         super();
-        this.name = name;
-        this.ID = ID;
-        this.age = age;
-        this.sex = sex;
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     //getters & setters
 
     @Override
     public String toString() {
-        return "Patient -- Name: " + name + "\tID: " + ID + "\tAge: " + age + "\tSex: " + sex;
+        return "ID: \t" + id + "\tX Value: " + x + "\tY Value: " + y + "\tZ Value: " + z;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setY(int y) {
+        this.y = y;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setZ(int z) {
+        this.z = z;
     }
 
-    public String getName() {
-        return this.name;
+    public int getId() {
+        return this.id;
     }
 
-    public int getID() {
-        return this.ID;
+    public int getX() {
+        return this.x;
     }
 
-    public int getAge() {
-        return this.age;
+    public int getY() {
+        return this.y;
     }
 
-    public String getSex() {
-        return this.sex;
+    public int getZ() {
+        return this.z;
     }
 
 }

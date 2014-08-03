@@ -14,7 +14,7 @@ import java.util.List;
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
 
-    private static final int DATABASE_VERSION = 1;              // Database Version
+    private static final int DATABASE_VERSION = 3;              // Database Version
     private static final String DATABASE_NAME = "PatientDB";    // Database Name
 
 
@@ -26,10 +26,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // SQL statement to create patients table
         String CREATE_PATIENT_TABLE = "CREATE TABLE patients ( " +
-                "name TEXT, " +
-                "id INTEGER, " +
-                "age INTEGER, " +
-                "sex TEXT )";
+                " id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "time TEXT, " +
+                "x INTEGER, " +
+                "y INTEGER, " +
+                "z INTEGER )";
 
         // create patients table
         db.execSQL(CREATE_PATIENT_TABLE);
@@ -54,12 +55,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final String TABLE_PATIENTS = "patients";
 
     // Patients Table Column names
-    private static final String KEY_NAME = "name";
     private static final String KEY_ID = "id";
-    private static final String KEY_AGE = "age";
-    private static final String KEY_SEX = "sex";
+    private static final String KEY_X = "x";
+    private static final String KEY_Y = "y";
+    private static final String KEY_Z = "z";
 
-    private static final String[] COLUMNS = {KEY_NAME,KEY_ID,KEY_AGE,KEY_SEX};
+    private static final String[] COLUMNS = {KEY_ID,KEY_X,KEY_Y, KEY_Z};
 
 
     public void addPatient(Patient patient){
@@ -71,10 +72,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, patient.getName());
-        values.put(KEY_ID, patient.getID());
-        values.put(KEY_AGE, patient.getAge());
-        values.put(KEY_SEX, patient.getSex());
+        values.put(KEY_ID, patient.getId());
+        values.put(KEY_X, patient.getX());
+        values.put(KEY_X, patient.getY());
+        values.put(KEY_X, patient.getZ());
+
 
         // 3. insert
         /*db.insert(TABLE_PATIENTS, // table
@@ -84,7 +86,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.insert(TABLE_PATIENTS, // table
                 null, //nullColumnHack
                 values); // key/value -> keys = column names/ values = column values
-
 
         // 4. close
         db.close();
@@ -121,10 +122,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
         // 4. build patient object
         Patient patient = new Patient();
-        patient.setName(cursor.getString(0));
-        patient.setID(Integer.parseInt(cursor.getString(1)));
-        patient.setAge(Integer.parseInt(cursor.getString(2)));
-        patient.setSex(cursor.getString(3));
+        patient.setId(Integer.parseInt(cursor.getString(0)));
+        patient.setX(Integer.parseInt(cursor.getString(1)));
+        patient.setY(Integer.parseInt(cursor.getString(2)));
+        patient.setZ(Integer.parseInt(cursor.getString(3)));
 
         //log
         Log.d("getPatient(" + id + ")", patient.toString());
@@ -149,10 +150,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 patient = new Patient();
-                patient.setName(cursor.getString(0));
-                patient.setID(Integer.parseInt(cursor.getString(1)));
-                patient.setAge(Integer.parseInt(cursor.getString(2)));
-                patient.setSex(cursor.getString(3));
+                patient.setId(Integer.parseInt(cursor.getString(0)));
+                patient.setX(Integer.parseInt(cursor.getString(1)));
+                patient.setY(Integer.parseInt(cursor.getString(2)));
+                patient.setZ(Integer.parseInt(cursor.getString(3)));
 
                 // Add patient to patients
                 patients.add(patient);
@@ -173,16 +174,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, patient.getName());
-        values.put(KEY_ID, patient.getID());
-        values.put(KEY_AGE, patient.getAge());
-        values.put(KEY_SEX, patient.getSex());
+        values.put(KEY_ID, patient.getId());
+        values.put(KEY_X, patient.getX());
+        values.put(KEY_X, patient.getY());
+        values.put(KEY_X, patient.getZ());
 
         // 3. updating row
         int i = db.update(TABLE_PATIENTS, //table
                 values, // column/value
                 KEY_ID+" = ?", // selections
-                new String[] { String.valueOf(patient.getID()) }); //selection args
+                new String[] { String.valueOf(patient.getId()) }); //selection args
 
         // 4. close
         db.close();
@@ -198,7 +199,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         // 2. delete
         db.delete(TABLE_PATIENTS,
                 KEY_ID+" = ?",
-                new String[] { String.valueOf(patient.getID()) });
+                new String[] { String.valueOf(patient.getId()) });
 
         // 3. close
         db.close();
