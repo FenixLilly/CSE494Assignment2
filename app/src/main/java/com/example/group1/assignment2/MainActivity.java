@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
+import java.util.List;
+
 
 public class MainActivity extends Activity  {
 
@@ -42,6 +44,29 @@ public class MainActivity extends Activity  {
                 callRunIntent();
             }
         });
+
+        MySQLiteHelper db = new MySQLiteHelper(this);
+
+        /**
+         * CRUD Operations
+         * */
+        // add Patients
+        db.addPatient(new Patient("John Lillyblad", 1, 30, "Male"));
+        db.addPatient(new Patient("Katie Smith", 2, 27, "Female"));
+
+        db.getPatient(1);
+
+
+        // get all patients
+        List<Patient> list = db.getAllPatients();
+
+
+        // delete one patient
+        //db.deletePatient(list.get(0));
+
+        // get all patients
+        db.getAllPatients();
+
     }
 
     public void callRunIntent(){
