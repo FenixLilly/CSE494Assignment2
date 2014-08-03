@@ -220,7 +220,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="16dp">
 
-            <com.example.group1.assignment1.GraphView
+            <com.example.group1.assignment2.GraphView
                 android:id="@+id/myGraphView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
