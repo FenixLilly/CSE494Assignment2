@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity  {
 
     Button runBtn;
     Button stopBtn;
