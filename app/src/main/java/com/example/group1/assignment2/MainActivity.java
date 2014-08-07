@@ -20,12 +20,16 @@ import java.util.List;
 public class MainActivity extends Activity  {
 
     Button runBtn;
-    Button stopBtn;
     EditText etID;
     EditText etAge;
     EditText etName;
     RadioGroup gender;
     Intent intRun;
+    String Name;
+    String ID;
+    String Age;
+    String Sex;
+    String tableName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +55,7 @@ public class MainActivity extends Activity  {
          * CRUD Operations
          * */
         // add Patients
-        db.addPatient(new Patient(1, 1, 30, 25));
+        db.addPatient(new Patient());
         //db.addPatient(new Patient("Katie Smith", 2, 27, "Female"));
 
         // get all patients
@@ -72,6 +76,9 @@ public class MainActivity extends Activity  {
         intRun.putExtra("age", etAge.getText().toString());
         intRun.putExtra("name", etName.getText().toString());
         onCheckedChanged(gender, gender.getCheckedRadioButtonId());
+
+        callCreatePatientTable()
+
         startActivity(intRun);
     }
 
@@ -123,5 +130,15 @@ public class MainActivity extends Activity  {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
+    }
+
+    public void callCreatePatientTable(){
+        Name = etName.getText().toString();
+        ID = etID.getText().toString();
+        Age = etAge.getText().toString();
+        Sex = "";
+        tableName = Name + "_" + ID + "_" + Age + "_" + Sex;
+        createTable(tableName);
+
     }
 }
