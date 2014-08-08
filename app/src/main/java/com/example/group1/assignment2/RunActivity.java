@@ -1,6 +1,5 @@
 package com.example.group1.assignment2;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,8 +55,10 @@ public class RunActivity extends MainActivity {
     }
 
     public void callStopIntent(){
-        Intent intMain = new Intent(this,MainActivity.class);
-        startActivity(intMain);
+        getFragmentManager().popBackStackImmediate();
+
+//        Intent intMain = new Intent(this,MainActivity.class);
+//        startActivity(intMain);
     }
 
     @Override
