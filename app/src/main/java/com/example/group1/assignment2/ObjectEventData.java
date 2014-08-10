@@ -10,14 +10,14 @@ public class ObjectEventData {
 
     public ObjectEventData(){}
 
-    public ObjectEventData(Integer id, long time, float x, float y, float z) {
+/*    public ObjectEventData(Integer id, long time, float x, float y, float z) {
         super();
         this.id = id;
         this.timestamp = time;
         this.x = x;
         this.y = y;
         this.z = z;
-    }
+    } */
 
     // setters
     public void setId(Integer id) {

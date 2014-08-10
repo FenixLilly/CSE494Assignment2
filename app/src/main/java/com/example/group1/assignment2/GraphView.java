@@ -1,4 +1,6 @@
-package net.pocketmagic.perseus;//add your own package name
+package com.example.group1.assignment2;
+
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
