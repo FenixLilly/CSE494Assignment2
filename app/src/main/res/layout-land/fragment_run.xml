@@ -220,10 +220,40 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="16dp">
 
-            <com.example.group1.assignment2.GraphView
-                android:id="@+id/myGraphView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/linearLayout2"
+                android:layout_alignLeft="@+id/linearLayout2"
+                android:layout_alignStart="@+id/linearLayout2"
+                android:layout_alignRight="@+id/linearLayout"
+                android:layout_alignEnd="@+id/linearLayout"
+                android:layout_alignParentBottom="true" >
+
+                <com.example.group1.assignment2.GraphView
+                    android:id="@+id/myGraphViewX"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_horizontal|top"
+                    android:layout_marginBottom="16dp"/>
+
+                <com.example.group1.assignment2.GraphView
+                    android:id="@+id/myGraphViewY"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <com.example.group1.assignment2.GraphView
+                    android:id="@+id/myGraphViewZ"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="16dp"/>
+
+            </FrameLayout>
+
         </FrameLayout>
 
     </RelativeLayout>

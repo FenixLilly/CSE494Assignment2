@@ -1,13 +1,10 @@
-package com.example.group1.assignment2;
-
+package net.pocketmagic.perseus;//add your own package name
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
-import android.util.AttributeSet;
 import android.view.View;
-import android.util.FloatMath;
 
 /**
  * GraphView creates a scaled line or bar graph with x and y axis labels.
@@ -16,81 +13,41 @@ import android.util.FloatMath;
  */
 public class GraphView extends View {
 
+    public static boolean BAR = false;
+    public static boolean LINE = true;
+
     private Paint paint;
-    public float[] values;
-    private String[] horlabels = {"2700", "2750", "2800", "2850", "2950", "3000", "3050" };
+    private float[] values;
+    private String[] horlabels;
     private String[] verlabels;
     private String title;
-    private float min;
-    private float max;
-    private float filler;
-    private float myFloats[];
+    private boolean type;
 
-    public GraphView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        // TODO Auto-generated constructor stub
-
-        //setValues(new float[]{0.1f,0.2f});
-        myFloats = new float[100];
-        for(int i = 0; i < 100; i++) {
-            if(i%2 == 0) {
-                filler = i + 3.14159f;
-            }
-            else if(i % 3 == 0) {
-                filler = i;
-            }
-            else
-                filler = i + 2*3.14159f;
-            filler *= 1000;
-            myFloats[i] = FloatMath.sin(filler);
-        }
-
-        //setValues(new float[]{0.1f,0.2f});
-        setValues(myFloats);
-        makeVerLabels();
-
-        paint=new Paint();
-        this.title="Patient Data";
-    }
-
-
-    public GraphView(Context context, float[] values, String title) {
+    public GraphView(Context context, float[] values, String title, String[] horlabels, String[] verlabels, boolean type) {
         super(context);
         if (values == null)
-            return;
+            values = new float[0];
         else
-            setValues(values);
-
-        makeVerLabels();
-        this.title = title;
-
+            this.values = values;
+        if (title == null)
+            title = "";
+        else
+            this.title = title;
+        if (horlabels == null)
+            this.horlabels = new String[0];
+        else
+            this.horlabels = horlabels;
+        if (verlabels == null)
+            this.verlabels = new String[0];
+        else
+            this.verlabels = verlabels;
+        this.type = type;
         paint = new Paint();
     }
 
-    public float[] getValues()
+    public void setValues(float[] newValues)
     {
-        return this.values;
-    }
-
-    public void setValues(float[] values_new)
-    {
-        this.values = values_new;
-        float diff = getMax()-getMin();
-        max = getMax() + diff/20;
-        min = getMin() - diff/20;
-        makeVerLabels();
-    }
-
-    private void makeVerLabels()
-    {
-        int numValues = 6;
-        this.verlabels = new String[numValues+1];
-        float diff = max - min;
-        for(int i=0; i<=numValues; i++)
-        {
-            this.verlabels[i] = ""+((float)Math.round(10*(max-(float)i/numValues*diff))/10);
-            //System.out.println(i);
-        }
+        this.values = newValues;
     }
 
     @Override
@@ -99,9 +56,12 @@ public class GraphView extends View {
         float horstart = border * 2;
         float height = getHeight();
         float width = getWidth() - 1;
+        float max = getMax();
+        float min = getMin();
         float diff = max - min;
         float graphheight = height - (2 * border);
         float graphwidth = width - (2 * border);
+
 
         paint.setTextAlign(Align.LEFT);
         int vers = verlabels.length - 1;
@@ -131,17 +91,31 @@ public class GraphView extends View {
 
         if (max != min) {
             paint.setColor(Color.LTGRAY);
-            float datalength = values.length;
-            float colwidth = (width - (2 * border)) / datalength;
-            float halfcol = colwidth / 2;
-            float lasth = 0;
-            for (int i = 0; i < values.length; i++) {
-                float val = values[i] - min;
-                float rat = val / diff;
-                float h = graphheight * rat;
-                if (i > 0)
+            if (type == BAR) {
+                float datalength = values.length;
+                float colwidth = (width - (2 * border)) / datalength;
+                for (int i = 0; i < values.length; i++) {
+                    float val = values[i] - min;
+                    float rat = val / diff;
+                    float h = graphheight * rat;
+                    canvas.drawRect((i * colwidth) + horstart, (border - h) + graphheight, ((i * colwidth) + horstart) + (colwidth - 1), height - (border - 1), paint);
+                }
+            } else {
+                float datalength = values.length;
+                float colwidth = (width - (2 * border)) / datalength;
+                float halfcol = colwidth / 2;
+                float lasth = 0;
+                for (int i = 0; i < values.length; i++) {
+                    float val = values[i] - min;
+                    float rat = val / diff;
+                    float h = graphheight * rat;
+                    if (i > 0)
+                        paint.setColor(Color.GREEN);
+                    paint.setStrokeWidth(2.0f);
+
                     canvas.drawLine(((i - 1) * colwidth) + (horstart + 1) + halfcol, (border - lasth) + graphheight, (i * colwidth) + (horstart + 1) + halfcol, (border - h) + graphheight, paint);
-                lasth = h;
+                    lasth = h;
+                }
             }
         }
     }
@@ -151,6 +125,8 @@ public class GraphView extends View {
         for (int i = 0; i < values.length; i++)
             if (values[i] > largest)
                 largest = values[i];
+
+        //largest = 3000;
         return largest;
     }
 
@@ -159,6 +135,8 @@ public class GraphView extends View {
         for (int i = 0; i < values.length; i++)
             if (values[i] < smallest)
                 smallest = values[i];
+
+        //smallest = 0;
         return smallest;
     }
 

@@ -3,15 +3,14 @@ package com.example.group1.assignment2;
 public class ObjectEventData {
 
     private Integer id;
-    private String timestamp;
-    private Integer x;
-    private Integer y;
-    private Integer z;
-
+    private long timestamp;
+    private float x;
+    private float y;
+    private float z;
 
     public ObjectEventData(){}
 
-    public ObjectEventData(Integer id, String time, Integer x, Integer y, Integer z) {
+    public ObjectEventData(Integer id, long time, float x, float y, float z) {
         super();
         this.id = id;
         this.timestamp = time;
@@ -20,51 +19,45 @@ public class ObjectEventData {
         this.z = z;
     }
 
-    //getters & setters
-
-    @Override
-    public String toString() {
-        return "ID: \t" + id + "\tTime: \t" + timestamp + "\tX Value: " + x + "\tY Value: " + y + "\tZ Value: " + z;
-    }
-
+    // setters
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setTimeStamp(String time) {
+    public void setTimeStamp(long time) {
         this.timestamp = time;
     }
 
-    public void setX(Integer x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public void setY(Integer y) {
+    public void setY(float y) {
         this.y = y;
     }
 
-    public void setZ(Integer z) {
+    public void setZ(float z) {
         this.z = z;
     }
 
+    // getters
     public Integer getId() {
         return this.id;
     }
 
-    public String getTimeStamp() {
+    public long getTimeStamp() {
         return this.timestamp;
     }
 
-    public Integer getX() {
+    public float getX() {
         return this.x;
     }
 
-    public Integer getY() {
+    public float getY() {
         return this.y;
     }
 
-    public Integer getZ() {
+    public float getZ() {
         return this.z;
     }
-
 }
